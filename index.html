@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 注意下面这个语句，将导入外部的 mycss.css 样式表文件 -->
+    <link rel="stylesheet" type="text/css" href="./mycss.css">
+    <title>《Web应用基础》课程结业报告</title>
+</head>
+
+<body>
+    <div class="weball">
+        <h1>《Web应用基础》课程结业报告</h1>
+        <div>
+            <h2>一、网页内容</h2>
+            <h3>1）网页总体概述</h3>
+            <p>开始计划用Angular和MDB做一个展示诗人的信息的动态页面。使用Angular来搭建页面框架、初步设计页面样式，使用MDB中定义的样式类及一些自己定义的样式来对页面样式进行优化。</p>
+            <p>在实现过程中，Angular始终无法和MDB兼容，故在此项目中实际使用的是AngularMeterial和Angular。在开发过程中使用了AngularMeterial提供的一些样式以及一些自定义的样式类，完成了此网页的设计和制作。
+            </p>
+            <h3>2）网页细节概述</h3>
+            <p>在这个网页中初步展示了6个诗人的信息，分别为李清照、李白、苏轼、杜甫、辛弃疾、李煜。展示了他们的生平经历和代表作品。在此网页中可以对诗人信息进行增删改查。此网页主要有三个界面：</p>
+            <p>第一个界面是诗人生平经历介绍界面。上部分是每个诗人的生平经历介绍，使用了AngularMeterial的选项卡样式将诗人经历进行了结合。点击诗人的姓名即可查看该诗人的生平经历。下部分是一个搜索框，使用了AngularMeterial的输入框样式和一些自定义样式，可以根据姓名进行搜索，点击自动弹出的搜索结果就可以进入第三个展示所选诗人详细信息界面。
+            </p>
+            <p>第二个界面是诗人代表作品展示界面。上部分的左半部分是诗人列表，展示了当前所有诗人。列表中的每一个项是一个按钮，当点击这个按钮时，则会跳转到第三个展示所选诗人详细信息界面。在每个项的后面有一个删除按钮（X），点击该按钮则可以删除对应诗人的信息。上部分的右半部分是三个使用自定义样式的输入框和一个“添加”按钮。在此处可以添加诗人信息，将需增加的诗人的姓名、生平经历、代表作品填入对应的输入框中，然后点击“添加”按钮，则可以增加输入的诗人信息。下部分使用了AngularMeterial中的选项卡样式，展示了所有诗人的代表作品，当点击诗人姓名时，则会展示所选诗人的代表作品。
+            </p>
+            <p>第三个页面是展示所选诗人的详细信息界面。可以点击第一个页面的搜索框中的搜索结果进入或者点击第二个界面的诗人列表中的具体项（实质也是一个按钮）进入。点击按钮时会将所点击的诗人id传给此界面，此界面则会根据传递过来的id展示该诗人的详细信息。上部分显示了该诗人的id和姓名，可以修改其姓名，点击“保存”按钮则完成了修改操作，自动返回第一个界面，或者点击“返回”按钮直接返回第一个界面。下部分使用了AngularMeterial的卡片样式。左半部分是一个该诗人生平经历卡片，右半部分是一个该诗人代表作卡片。
+            </p>
+        </div>
+        <div>
+            <h2>二、开发过程</h2>
+            <h3>1)app.component.* 壳组件设置</h3>
+            <h4>Ⅰ.设置页面的标题：标题的内容及标题的样式</h4>
+            <p>步骤：①修改app.component.ts中title的属性值。</p>
+            <p> ②在src/styles.css文件以及app.component.css文件中设置标题的样式。</p>
+            <p> ③在app.component.html文件中使用Angular双花括号语法（插值绑定语法）显示标题。</p>
+            <h3>2)poets.component.* 诗人组件的创建及设置</h3>
+            <h4>Ⅰ.创建诗人组件(poets)</h4>
+            <p>步骤：①使用Angular CLI创建一个名为poets的新组件。</p>
+            <h4>Ⅱ.诗人组件的配置</h4>
+            <p>步骤：①显示 PoetsComponent 视图： 将PoetsComponent 加到壳组件 AppComponent 的模板中。</p>
+            <p> ②创建poet类：在src/app/poets/文件夹中为Poet类创建一个文件，并添加 id 、 name和poetryname 属性。回到 poetsComponent 类，并且导入这个 Poet 类。添加poet属性，把组件的poet 属性的类型构造为 Poet，然后进行初始化。
+            </p>
+            <p> ③显示poet对象：设置模板中的绑定信息，以显示诗人的名字，并在详情中显示 id 、name和poetryname。</p>
+            <p> ④将表单元素 input 和组件的 poet.name 属性之间建立双向数据绑定。使得数据流动自动化。</p>
+            <p> ⑤创建模拟（mock）的诗人数据：在 src/app/ 文件夹中创建一个名叫 mock-poets.ts 的文件。 定义一个包含十个诗人的常量数组POETS，并导出它。</p>
+            <p> ⑥显示诗人信息：打开 PoetsComponent 类文件，并导入模拟的 POETS。往类中添加一个 poets 属性，这样可以暴露出这个 POETS 数组，以供绑定。然后使用 *ngFor 列出这些诗人。
+            </p>
+            <p> ⑦美化诗人列表：在poets.component.css 文件中为列表设置一些自定义样式，使列表看起来美观。</p>
+            <p> ⑧添加 click 事件绑定：往 li 元素上插入一句点击事件的绑定代码。</p>
+            <p> ⑨添加 click 事件处理器：添加 onSelect() 方法及做一些绑定设置。</p>
+            <p> ⑩添加诗人详情区，并给所选择的诗人添加样式，使其不同于其他诗人。</p>
+            <p> ⑪修改 PoetsComponent 的模板：PoetDetailComponent 的选择器是 'app-poet-detail'。
+                把 app-poet-detail 添加到 PoetsComponent 模板的底部，以便把诗人详情的视图显示到那里。</p>
+            <h3>3)AppModule类 设置</h3>
+            <h4>Ⅰ.导入 FormsModule</h4>
+            <p>步骤：①打开 AppModule (app.module.ts) 并从 @angular/forms 库中导入 FormsModule 符号。</p>
+            <p> ②然后把 FormsModule 添加到 @NgModule 元数据的 imports 数组中，这里是该应用所需外部模块的列表。</p>
+            <h3>4)poet-detail.component.* 诗人细节组件的创建及设置</h3>
+            <h4>Ⅰ.创建诗人细节组件(poet-detail)</h4>
+            <p>步骤：①使用Angular CLI创建一个名为poet-detail的新组件。</p>
+            <h4>Ⅱ.诗人细节组件的配置</h4>
+            <p>步骤：①编写模板：从 PoetsComponent 模板的底部把表示诗人详情的 HTML 代码剪切粘贴到所生成的 PoetDetailComponent 模板中。所粘贴的 HTML
+                引用了 selectedPoet。 新的 PoetDetailComponent 可以展示任意诗人，而不仅仅所选的。因此还要把模板中的所有 selectedPoet 替换为 poet。
+            <p> ②添加 @Input() poet 属性：PoetDetailComponent 模板中绑定了组件中的 poet 属性，它的类型是 Poet。
+                打开 PoetDetailComponent 类文件，并导入 poet 符号。poet 属性必须是一个带有 @Input() 装饰器的输入属性，因为外部的 PoetsComponent 组件将会绑定到它。修改 @angular/core 的导入语句，导入 Input 符号。
+            </p>
+            <p> ③支持路由的 HeroDetailComponent：获取创建本组件的路由，再从这个路由中提取出 id，最后通过 PoetService 从服务器上获取具有这个 id 的诗人数据。并设置回到原路的按钮。
+            </p>
+            <h3>5)PoetService 诗人服务的创建及设置</h3>
+            <h4>Ⅰ.创建诗人服务</h4>
+            <p>步骤：①使用 Angular CLI 创建一个名叫 poet 的服务。</p>
+            <h4>Ⅱ.诗人服务的配置</h4>
+            <p>步骤：①获取英雄数据：PoetService 可以从任何地方获取数据：Web
+                服务、本地存储（LocalStorage）或一个模拟的数据源。导入 Poet 和 POETS。添加一个 getPoets 方法，让它返回模拟的诗人列表。</p>
+            <p>②提供（provide） PoetService：先注册一个服务提供者，来让 PoetService 在依赖注入系统中可用，Angular
+                才能把它注入到 PoetsComponent 中。所谓服务提供者就是某种可用来创建或交付一个服务的东西；在这里，它通过实例化 PoetService 类，来提供该服务。为了确保 PoetService 可以提供该服务，就要使用注入器来注册它。注入器是一个对象，负责当应用要求获取它的实例时选择和注入该提供者。
+            </p>
+            <p>③修改 PoetsComponent:打开 PoetsComponent 类文件。删除 POETS 的导入语句，转而导入 PoetService。把 poets 属性的定义改为一句简单的声明。</p>
+            <p>④注入 PoetService并添加 getPoets():往构造函数中添加一个私有的 poetService，其类型为 PoetService。创建一个getPoets()方法，以从服务中获取这些诗人数据。在 ngOnInit() 中调用它。
+            </p>
+            <p>⑤可观察（Observable）的数据：打开 PoetService 文件，并从 RxJS
+                中导入 Observable 和 of 符号。更改getPoets() 方法，of(POETS) 会返回一个 Observable Poet[]
+                ，它会发出单个值，这个值就是这些模拟诗人的数组。PoetService.getPoets 方法之前返回一个 Poet[]， 现在它返回的是 Observable Poet[]
+                。你必须在 PoetsComponent 中也向本服务中的这种形式看齐。</p>
+            <h3>6) MessageService的创建及设置</h3>
+            <h4>Ⅰ.创建MessageService服务</h4>
+            <p>步骤：①使用 CLI 在 src/app 中创建 MessageService。</p>
+            <h4>Ⅱ.MessageService的配置</h4>
+            <p>步骤：①修改MessageService的内容。在 HeroService 中导入 MessageService。</p>
+            <p>②从 PoetService 中发送一条消息：修改 getPoets() 方法，在获取到诗人数组时发送一条消息。</p>
+            <p>③从 PoetService 中显示消息：MessagesComponent 可以显示所有消息，
+                包括当 PoetService 获取到诗人数据时发送的那条。打开 MessagesComponent，并且导入 MessageService。修改构造函数，添加一个 public 的 messageService 属性。
+                Angular 将会在创建 MessagesComponent 的实例时 把 MessageService 的实例注入到这个属性中。这个 messageService 属性必须是公共属性。</p>
+            <p>④绑定到 MessageService：修改MessagesComponent 的模板。并为 poet 服务添加额外的消息</p>
+            <h3>7)AppRoutingModule的添加及配置</h3>
+            <h4>Ⅰ.AppRoutingModule的添加</h4>
+            <p>步骤：①在 Angular
+                中，最好在一个独立的顶层模块中加载和配置路由器，它专注于路由功能，然后由根模块 AppModule 导入它。按照惯例，这个模块类的名字叫做 AppRoutingModule，并且位于 src/app 下的 app-routing.module.ts 文件中。使用
+                CLI 生成它。</p>
+            <h4>Ⅱ.AppRoutingModule的配置</h4>
+            <p>步骤：①添加路由出口：打开 AppComponent 的模板，把 app-poets 元素替换为 router-outlet 元素。router-outlet 会告诉路由器要在哪里显示路由的视图。
+            </p>
+            <p>②添加路由链接：理想情况下，用户应该能通过点击链接进行导航，而不用被迫把路由的 URL 粘贴到地址栏。
+                添加一个 nav 元素，并在其中放一个链接 a 元素，当点击它时，就会触发一个到 PoetsComponent 的导航。要实现此功能，需修改 AppComponent 模板。</p>
+            <h3>8)dashboard的创建及配置</h3>
+            <h4>Ⅰ.dashboard的创建</h4>
+            <p>步骤：①使用 CLI 添加一个 DashboardComponent。CLI 生成了 DashboardComponent 的相关文件，并把它声明到 AppModule 中。</p>
+            <h4>Ⅱ.dashboard的配置</h4>
+            <p>步骤：①修改DashboardComponent 的相关文件(.html,.css,.ts文件)</p>
+            <p>②添加仪表盘路由：把 DashboardComponent 导入到 app-routing-module.ts 中。并把一个指向 DashboardComponent 的路由添加到 routes 数组中。
+            </p>
+            <p>③添加默认路由：当应用启动时，浏览器的地址栏指向了网站的根路径。
+                它没有匹配到任何现存路由，因此路由器也不会导航到任何地方。 router-outlet 下方是空白的。此时需要把默认路由添加到 routes 数组中。这个路由会把一个与空路径“完全匹配”的 URL
+                重定向到路径为 '/dashboard' 的路由。浏览器刷新之后，路由器加载了 DashboardComponent，并且浏览器的地址栏会显示出 /dashboard 这个 URL。
+            </p>
+            <p>④把仪表盘链接添加到壳组件中：把仪表盘的导航链接添加到壳组件 AppComponent 的模板中，就放在 Poets 链接的前面。</p>
+            <h3>9)导航到诗人详情</h3>
+            <p>步骤：①首先从 PoetsComponent 中删除诗人详情</p>
+            <p> ②添加诗人详情视图。</p>
+            <p> ③修改DashboardComponent 中的诗人链接，并修改PoetsComponent 中的英雄链接</p>
+            <h3>10)启用 HTTP 服务</h3>
+            <p>步骤：①HttpClient 是 Angular 通过 HTTP 与远程服务器通讯的机制。</p>
+            <p> ②用导入语句把HttpClient添加到根模块 AppModule。</p>
+            <p> ③在 AppModule 中，把 HttpClientModule 添加到 imports 数组中。</p>
+            <h3>11)模拟数据服务器</h3>
+            <p>步骤：①在命令行从 npm 中安装内存 Web API 包</p>
+            <p> ②在 AppModule 中，导入 HttpClientInMemoryWebApiModule 和 InMemoryDataService 类。</p>
+            <p> ③在 HttpClientModule 之后，将 HttpClientInMemoryWebApiModule 添加到 AppModule 的 imports 数组中，并以
+            <p> InMemoryDataService 为参数对其进行配置。</p>
+            <p> ④在命令行中使用命令生成类 src/app/in-memory-data.service.ts。并修改其内容，使其包含诗人数组，并能被获取诗人的相关信息。</p>
+            <h3>12)诗人与HTTP</h3>
+            <p>步骤：①在 PoetService 中，导入 HttpClient 和 HttpHeaders：</p>
+            <p>②在 PoetService 中，把 HttpClient 注入到构造函数中一个名叫 http 的私有属性中。</p>
+            <p> ③把服务器上诗人数据资源的访问地址 poetsURL 定义为 :base/:collectionName 的形式。 这里的 base 是要请求的资源，而 collectionName 是
+                in-memory-data-service.ts 中的诗人数据对象。</p>
+            <p> ④通过 HttpClient 获取诗人</p>
+            <p> ⑤HttpClient 的方法返回单个值</p>
+            <p> ⑥HttpClient.get() 返回响应数据</p>
+            <p> ⑦错误处理</p>
+            <p> ⑧窥探 Observable</p>
+            <p> ⑩通过 id 获取英雄13)诗人的增删改查</p>
+            <h3>13)诗人的增删改查</h3>
+            <p>步骤：①修改诗人信息：在poet-detail.component.html中增加一个按钮和对应的监听事件，并在诗人服务器端编写接收修改诗人信息的函数，当点击这个按钮时，能够获取修改过的诗人的信息，并将修改过的诗人的信息传给诗人服务器，服务器则根据诗人的id将修改后的信息保存在内存
+                Web API（In-memory Web API） 模拟出的远程数据服务器中。</p>
+            <p> ②添加诗人：添加一个按钮和一个与添加按钮成对的
+                元素以及其监听事件，在诗人服务器端编写接收添加诗人的函数，当点击按钮时，获取input标签中的诗人信息，并传给诗人服务器，服务器给新的诗人分配一个id，并将新加的诗人数据保存在内存 Web
+                API（In-memory Web API） 模拟出的远程数据服务器中。当保存成功时，subscribe() 的回调函数会收到这个新诗人，并把它追加到 poets列表中以供显示。</p>
+            <p>③删除某个诗人：在每个诗人的名字后方添加一个按钮以及其对应的监听事件，在诗人服务器端编写删除诗人的函数，使其能根据需删除诗人的id，在内存 Web API（In-memory Web API）
+                模拟出的远程数据服务器中将该诗人的信息删除。</p>
+            <p> ④根据名字搜索诗人：先把 searchPoets() 方法添加到 PoetService 中,创建 PoetSearchComponent,把生成的 PoetSearchComponent
+                的模板改成一个和一个匹配到的搜索结果的列表，并将该组件的选择器嵌入到对应的html文件中。在 PoetSearchComponent 的模板中使用到了Angular 的 AsyncPipe
+                管道，它会自动订阅
+                Observable，无需人为的进行订阅。最后修改所生成的 HeroSearchComponent 类及其元数据即可。</p>
+            <h3>14)整个网页样式的规划与设计</h3>
+        </div>
+        <div>
+            <h2>三、遇到的问题</h2>
+            <p>1)MDB项目和angular创建的项目无法成功融合，即无法在angular中使用MDB已经定义好的样式类。</p>
+            <p>2)在使用路由方式加载诗人详情页面时，详情一直无法出现，只有导航和信息框。</p>
+            <p>3)使用AngularMeterial时，配置其环境后，一直无法使用AngularMeterial的组件，只要在app.module.ts中导入组件，就会报错，并且错误是来自于angular的配置文件。错误如下：
+            </p>
+            <div class="img"><img src="./img/fault1.png" alt="img"><br>
+                图：是我引入AngularMeterial的button组件时报的错误</div>
+            <p>4)网页的背景图片始终无法匹配网页内容，根据内容的大小动态调整图片大小。无法匹配的部分是使用了AngularMeterial样式的部分，如下（当设置背景图片的大小为匹配网页内容时）。下面的卡片没有包含在网页的背景图片之中，但其属于网页内容，而卡片使用的样式是AngularMeterial中定义的样式。
+            </p>
+            <div class="img"><img src="./img/fault2.png" alt="img"><br>
+                图：让背景图片大小匹配网页内容时的界面</div>
+        </div>
+        <div>
+            <h2>四、如何解决</h2>
+            <p>1)使用了AngularMeterial来替代MDB项目。</p>
+            <p>2)对照英雄之旅的教程，重新将诗人详情的组件进行了路由方式的连接，连接到第三次时成功。后面检查发现，有个属性值的字母打错了，但是VScode没有报错，因为那是自定义的属性名，这边将诗人的详细信息传给了错误的参数，另外一边正确的参数则无法接收到传递的值，一直为空，所以显示不出来。
+            </p>
+            <p>3)后面经过查找别人的类似错误以及查看了官方的英文文档，发现是AngularMeterial和Angular的版本不兼容的问题，但是在原项目中更新两者版本，使其保持一致，又会出现其他的module没有导入的错误。所以我先重新建立了一个新的项目，尝试解决这个版本不兼容的问题。结果在按照官方文档为新项目配置AngularMeterial时，并没有出现版本不兼容的问题。于是我就重新在项目没有配置AngularMeterial时的最后一个版本，从头开始进行AngularMeterial的配置，结果就配置成功了。后面我猜测，之前版本出现不兼容，应该是我错误地多配置了一些乱七八糟的内容，引起了版本的不兼容。
+            </p>
+
+        </div>
+        <div>
+            <h2>五、哪些未解决</h2>
+            <p>1)MDB项目始终与Angular无法兼容。MDB版本现在已升级到5.0,且不兼容以前的版本，MDB5.0更符合Angular的设计理念。我的Angular的版本是11.2.10,与MDB4.12的版本会出现不兼容的现象。
+            </p>
+            <p>2)背景图片无法根据网页内容的大小而动态调整。无法动态调整的部分是使用了AngularMeterial样式的部分。我百度了这个情况，但是没有发现有人遇到过类似情况。查看了AngularMeterial官方一系列文档，也没有看到关于这方面的叙述。
+            </p>
+
+        </div>
+        <div>
+            <h2>六、总结</h2>
+            <p>在此网页设计与开发中，学到了用Angular搭建动态网页框架的基本方法和基本操作流程；学到了怎样将Angular与其他已经设计好的样式库进行结合，搭建其交互环境；学到了数据服务器的作用、功能和使用方法；大致了解了如何用json格式存储数据并与服务器进行数据交换；基本了解了动态网站的搭建和设计方法；学会了如何根据样式库提供的API接口进行样式的调用；学会了如何将Angular设计的网页部署到github上等等知识和能力。我觉得最重要的一点是，进一步提高了自己的自学能力和程序报错时解决问题的能力。
+            </p>
+            <p>在这个网页设计、搭建的过程中，遇到了种种的问题，可能一个问题就需要我半天甚至一天的时间去解决。解决这些问题消耗了我大量的时间，并且这个过程看上去貌似是在浪费时间，因为没有推动搭建网页整体上的进展。但是我觉得，正是因为这些错误的存在，进一步地锻炼了我的能力，因为他们的存在，我不得不尝试一切办法去解决他们，去学习更多的知识来战胜他们。所以说，错误的解决过程也是我自学能力以及解决问题能力提高的过程。搭建网页的过程中我大部分的时间是在解决错误，所以我的能力也在慢慢地提高着。这个作业与其说是对我们的能力进行测试，不如说是一次提高自我能力的学习过程。
+            </p>
+            <p> 由于时间问题，自我感觉这个网页做的真的很粗糙，只能作为作业答案而存在，完全无法用于观赏或者商用。但我觉得结果不是很重要，过程才是最重要的。在这个过程中我学到了很多，能力也在潜移默化的提高着。下次如果需要开发商用网页时至少有基础和经验，也有搭建动态网页的大概思路和流程以及自学能力与解决问题的能力，做起来应该不会太过困难。
+            </p>
+
+        </div>
+
+    </div>
+</body>
+
+</html>

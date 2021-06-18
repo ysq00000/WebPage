@@ -1,0 +1,33 @@
+.weball{
+    padding: 50px;
+}
+.weball h1{
+    text-align: center;
+    font-size: 40px;
+}
+.weball h2{
+    font-size: 30px;
+}
+.weball h3{
+    font-size: 25px;
+    margin-left: 30px;
+}
+.weball h4{
+    font-size: 20px;
+    margin-left: 60px;
+}
+p{
+    text-indent:2em;
+    font-size: 20px;
+ }
+ .weball img{
+    height: 500px;
+    width: 800px;
+    text-align: center;
+ }
+ .img{
+     text-align: center;
+ }
+ pre{
+    font-size: 20px;
+ }
